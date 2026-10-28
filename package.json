@@ -31,7 +31,7 @@
     "dsh": ">=0.2.1-rc.2 <0.3.0",
     "node": ">=20"
   },
-  "author": "dsh-notify-toast contributors",
+  "author": "game25011 <1449262586@QQ.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
