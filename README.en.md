@@ -192,7 +192,7 @@ Host: koffi user32 SetForegroundWindow ← focus
 
 ```text
 Command                                      Description
-npm test                                     Unit tests for text cleanup/truncation, config, merging, titles, goal aggregation and native lifecycle (92 tests)
+npm test                                     Unit tests for text cleanup/truncation, config, merging, titles, goal aggregation and native lifecycle (94 tests)
 npm run smoke                                Smoke test that simulates __ModuleLoader__ loading client.js (25 tests)
 npm run probe                                RPC probe: --self-check runs pure-function checks (7 checks); --url probes the host RPC route (expects 401/403 without a cookie)
 node scripts/host-probe.mjs <profileDir>     Host integration probe (real profile cwd)

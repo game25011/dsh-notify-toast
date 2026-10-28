@@ -178,6 +178,20 @@ test('resume starts a new run segment with a fresh baseline', () => {
   assert.equal(summaries[1].text, 'second run')
 })
 
+test('a goal discovered mid-turn inherits the active turn and waits for its final end', () => {
+  const { c, summaries, tracker } = create()
+  tracker.onTurnStart('s1')
+  tracker.onGoalRound('s1', { kind: 'goal', goalId: 'goal-1', revision: 1, round: 1 })
+  complete(tracker, 'complete', 'complete', 1)
+  c.runAll()
+  assert.equal(summaries.length, 0, 'mid-turn goal termination must not settle early')
+  tracker.onTurnEnd('s1', { text: 'final wrap-up', turnKey: '1' })
+  c.runAll()
+  assert.equal(summaries.length, 1)
+  assert.equal(summaries[0].count, 1)
+  assert.equal(summaries[0].text, 'final wrap-up')
+})
+
 test('quick pause then resume finalizes the old segment before starting the new one', () => {
   const { c, summaries, tracker } = create()
   createGoal(tracker)

@@ -109,11 +109,7 @@ public static class DshNativeToast
         // banner was dismissed, keep the helper alive until the notification
         // has expired in the Action Center so a later center click can still
         // deliver its callback.
-        if (activationStarted.IsSet)
-        {
-            activationFinished.Wait(ActivationGraceMs);
-        }
-        else
+        if (!activationStarted.IsSet)
         {
             var expiration = toast.ExpirationTime;
             var remainingRetentionMs = expiration.HasValue
@@ -121,8 +117,16 @@ public static class DshNativeToast
                 : 0;
             if (remainingRetentionMs > 0)
             {
-                Thread.Sleep((int)Math.Min(remainingRetentionMs, durationMs + RetentionGraceMs + 1000.0));
+                var waitMs = (int)Math.Min(remainingRetentionMs, durationMs + RetentionGraceMs + 1000.0);
+                // Wait for a click during notification-center retention instead
+                // of sleeping through it. If the click arrives, fall through to
+                // wait for its loopback POST to finish before process exit.
+                activationStarted.Wait(TimeSpan.FromMilliseconds(Math.Max(0, waitMs)));
             }
+        }
+        if (activationStarted.IsSet)
+        {
+            activationFinished.Wait(ActivationGraceMs);
         }
     }
 

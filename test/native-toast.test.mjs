@@ -115,6 +115,18 @@ test('activation callback is validated and delivered once', async () => {
   }
 })
 
+test('dispose during callback-server startup settles show()', async () => {
+  const { manager } = createManager()
+  const pending = manager.show({ kind: 'test', title: 'startup race', body: 'body', durationMs: 3000 })
+  manager.dispose()
+  const result = await Promise.race([
+    pending,
+    new Promise((resolve) => setTimeout(() => resolve({ ok: 'timeout' }), 1000)),
+  ])
+  assert.notEqual(result.ok, 'timeout', 'show() must not stay pending after dispose')
+  assert.equal(result.ok, false)
+})
+
 test('activation rejects a bad token', async () => {
   const { manager, spawned, activated } = createManager()
   try {
