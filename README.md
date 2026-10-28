@@ -73,6 +73,17 @@ plugin_manager → install_bundle → target: <插件目录绝对路径>
 
 本地目录安装为 link，代码改动可被 DSH 的 HMR 感知；Host 侧 JavaScript 变更若未热更新，需要重启 DSH。
 
+### 方式 C：插件市场索引
+
+本仓库自带 `market-index.json`。在 DSH 的插件市场/发现页添加自定义索引：
+
+```text
+https://raw.githubusercontent.com/game25011/dsh-notify-toast/d33f7aa41a8f2f0ec947503708d7ad9420fbe605/market-index.json
+```
+
+添加后搜索 `dsh-notify-toast` 即可看到本插件，并从市场安装固定版本的 Git 源。  
+这是**自托管索引**；DSH 官方默认索引不会自动收录本插件，其他用户需要添加同一索引或由官方目录收录。
+
 ### 升级
 
 - 新版本 tgz：再次 `install_bundle`（应用内会提示重启以加载新的 JS 模块）。

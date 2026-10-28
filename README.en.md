@@ -70,6 +70,17 @@ plugin_manager → install_bundle → target: <absolute path to the plugin direc
 
 Installing from a local directory creates a link, so DSH's HMR can pick up code changes; Host-side JavaScript changes may still require a restart if they are not hot-updated.
 
+### Option C: Plugin market index
+
+This repository ships `market-index.json`. Add this custom index in the DSH plugin market/discovery page:
+
+```text
+https://raw.githubusercontent.com/game25011/dsh-notify-toast/d33f7aa41a8f2f0ec947503708d7ad9420fbe605/market-index.json
+```
+
+Then search for `dsh-notify-toast` and install the pinned Git version.  
+This is a **self-hosted index**; the default DSH market does not automatically list this plugin, so other users must add the same index or the official catalog must include it.
+
 ### Upgrade
 
 - New tgz: run `install_bundle` again (the application prompts for a restart to load the new JS modules).
