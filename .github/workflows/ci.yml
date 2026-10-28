@@ -63,7 +63,7 @@ jobs:
           done
           echo "Checked ${#files[@]} files with node --check."
 
-      # 91 tests across 8 files. On runners without a DSH profile the two
+      # 92 tests across 8 files. On runners without a DSH profile the two
       # "real profile schemastery" tests skip themselves (exit code stays 0).
       - name: Unit tests
         run: npm test

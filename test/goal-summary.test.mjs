@@ -88,6 +88,25 @@ test('goal mode suppresses per-turn completions and emits one aggregate summary'
   assert.equal(summaries[0].allDone, false)
 })
 
+test('a terminal event inside a turn waits for that turn to finish before summarizing', () => {
+  const { c, summaries, tracker } = create()
+  createGoal(tracker)
+  tracker.onTurnStart('s1')
+  tracker.onTurnEnd('s1', { text: 'previous round', turnKey: '1' })
+  tracker.onTurnStart('s1')
+  complete(tracker, 'complete', 'complete', 2)
+  c.runAll()
+  assert.equal(summaries.length, 0, 'must not publish before the final turn ends')
+  assert.equal(tracker.onTurnEnd('s1', { text: 'final wrap-up', turnKey: '2' }), true)
+  c.runAll()
+  assert.equal(summaries.length, 1)
+  assert.equal(summaries[0].text, 'final wrap-up')
+  assert.equal(tracker.onTurnEnd('s1', { text: 'final duplicate', turnKey: '2' }), true)
+  assert.equal(tracker.onTurnEnd('s1', { text: 'ordinary next turn', turnKey: '3' }), false)
+  c.runAll()
+  assert.equal(summaries.length, 1)
+})
+
 test('paused and blocked goals use neutral outcomes', () => {
   const paused = create()
   createGoal(paused.tracker)
@@ -218,16 +237,17 @@ test('disabled delivery does not suppress ordinary turns and does not replay aft
   assert.equal(summaries.length, 0)
 })
 
-test('re-enabling during a goal starts accounting at the latest known round', () => {
+test('re-enabling during a goal starts accounting at the first newly enabled round', () => {
   const { c, summaries, tracker, setEnabled } = create({ enabled: false })
   createGoal(tracker)
   assert.equal(tracker.onTurnEnd('s1', { text: 'before enable', turnKey: '1' }), false)
   setEnabled(true)
+  tracker.onGoalRound('s1', { kind: 'goal', goalId: 'goal-1', revision: 1, round: 2 })
   assert.equal(tracker.onTurnEnd('s1', { text: 'after enable', turnKey: '2' }), true)
   complete(tracker, 'complete', 'complete', 2)
   c.runAll()
   assert.equal(summaries.length, 1)
-  assert.equal(summaries[0].count, 2)
+  assert.equal(summaries[0].count, 1)
 })
 
 test('stale goal transitions are ignored', () => {

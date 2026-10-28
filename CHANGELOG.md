@@ -8,7 +8,7 @@
 - 标题改为自动场景文案：单步「DeepSeek 搞定了一小步」、2–4 步「DeepSeek 一口气推进了 N 步」、≥5 步「DeepSeek 火力全开，连推了 N 步」、提问「DeepSeek 想问你一个问题」、授权「DeepSeek 需要你的授权」、全部根会话完成「所有任务均已完成」；删除自定义完成标题输入。
 - 删除 DSH 内应用内倒计时卡片及相关设置；改为 Windows 原生通知：Host 通过 PowerShell/C#/WinRT helper 显示真实 Windows toast，带动态 `<progress>` 进度条；到期停止更新、不主动 `Hide()`，让 Windows 自然退场，时间只作近似；helper 不可用时自动回退 Web Notification。
 - Host 新增 `native-notify` RPC、loopback 激活回调 server、`activate` 事件；点击原生通知尽量回到对应会话；回调失败时不承诺 session 定位。
-- 新增 native helper 编译缓存（`%LOCALAPPDATA%\\dsh-notify-toast\\native-cache`）与版本 0.3.0；启动预热减少首条通知延迟；同 kind 通知改用唯一 tag，旧 helper 允许自然退出；移除旧 in-app overlay/`native-and-inapp` 主路径死代码，同时保留旧配置到 `native-progress` 的迁移；测试更新为 91 项单测 + 25 项 client smoke。
+- 新增 native helper 编译缓存（`%LOCALAPPDATA%\\dsh-notify-toast\\native-cache`）与版本 0.3.0；启动预热减少首条通知延迟；同 kind 通知改用唯一 tag，旧 helper 允许自然退出；移除旧 in-app overlay/`native-and-inapp` 主路径死代码，同时保留旧配置到 `native-progress` 的迁移；测试更新为 92 项单测 + 25 项 client smoke。
 
 ## 0.2.0 — 2026-10-19
 

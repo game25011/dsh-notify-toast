@@ -1,6 +1,6 @@
 # dsh-notify-toast 0.1.0 — 测试与验收报告（历史）
 
-> 0.3.0 注：本文件是 0.1.0 的历史报告，不应作为当前验收结论。0.3.0 当前自动测试为 `npm test` 91/91、client smoke 25/25（goal 汇总与原生生命周期），并已完成原生进度 toast、点击回调和真实 DSH 点击回会话验证；详见 README、CHANGELOG 与 0.3.0 维护记录。
+> 0.3.0 注：本文件是 0.1.0 的历史报告，不应作为当前验收结论。0.3.0 当前自动测试为 `npm test` 92/92、client smoke 25/25（goal 汇总与原生生命周期），并已完成原生进度 toast、点击回调和真实 DSH 点击回会话验证；详见 README、CHANGELOG 与 0.3.0 维护记录。
 
 > 环境：Windows 10/11 · DeepSeek Harness Desktop `0.2.1-rc.2`（Electron 壳）· profile `desktop` · 页面 origin `dsh-app://app`
 > 记录时间：2026-10-18（Asia/Shanghai）

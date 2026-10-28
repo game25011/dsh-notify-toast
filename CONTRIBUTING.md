@@ -30,7 +30,7 @@ Run these from the repository root:
 
 | Command | What it covers |
 |---|---|
-| `npm test` | Unit tests for text cleanup/truncation, configuration, completion merging, RPC routing, automatic titles, goal aggregation, native lifecycle and the all-done feature (91 tests). |
+| `npm test` | Unit tests for text cleanup/truncation, configuration, completion merging, RPC routing, automatic titles, goal aggregation, native lifecycle and the all-done feature (92 tests). |
 | `npm run smoke` | Client smoke test that simulates `window.__ModuleLoader__`, `Notification`, and `AudioContext` to exercise loading, focus, toasts, sound, settings save, and cleanup (25 tests). |
 | `node scripts/probe-rpc.mjs --self-check` | Pure-function checks for defaults, config validation, and text cleanup (7 checks). |
 

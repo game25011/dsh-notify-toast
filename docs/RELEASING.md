@@ -53,7 +53,7 @@
 
 | 命令 | 预期输出 / 结果 |
 |---|---|
-| `npm test` | 91 项；0 failed、退出码 0（本机 profile 下 91 passed；无 profile 时个别 profile 相关测试会 skip） |
+| `npm test` | 92 项；0 failed、退出码 0（本机 profile 下 92 passed；无 profile 时个别 profile 相关测试会 skip） |
 | `npm run smoke` | `client smoke test: 25 passed, 0 failed` |
 | `node scripts/probe-rpc.mjs --self-check` | `7/7 checks passed` |
 | `npm pack --dry-run` | `entryCount: 26`，共 26 个文件（含原生 helper、Bubble 音效与 README 截图；以实际输出为准，见 2.2） |
@@ -75,7 +75,7 @@
     npm run smoke
     node scripts/probe-rpc.mjs --self-check
 
-Windows 建议在 Git Bash 中执行；`rm -rf` 前先确认目标就是上述临时目录。注意：临时目录本身不会改变测试结果；结果取决于是否存在 DSH profile——本机 profile 下 91 passed；无 profile 时个别 profile 相关测试会 skip，0 failed。
+Windows 建议在 Git Bash 中执行；`rm -rf` 前先确认目标就是上述临时目录。注意：临时目录本身不会改变测试结果；结果取决于是否存在 DSH profile——本机 profile 下 92 passed；无 profile 时个别 profile 相关测试会 skip，0 failed。
 
 ### 2.2 `npm pack` 文件清单（0.3.0 实测 26 个）
 

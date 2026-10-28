@@ -45,15 +45,23 @@ public static class DshNativeToast
         toast.ExpirationTime = DateTimeOffset.Now.AddMilliseconds(safeDuration + RetentionGraceMs);
 
         var stop = new ManualResetEventSlim(false);
-        var activated = false;
+        var activationStarted = new ManualResetEventSlim(false);
+        var activationFinished = new ManualResetEventSlim(false);
 
         if (!string.IsNullOrEmpty(callbackUrl))
         {
             var handler = new TypedEventHandler<ToastNotification, object>(delegate
             {
-                activated = true;
+                activationStarted.Set();
                 stop.Set();
-                PostActivation(callbackUrl, token, sessionId, notificationId);
+                try
+                {
+                    PostActivation(callbackUrl, token, sessionId, notificationId);
+                }
+                finally
+                {
+                    activationFinished.Set();
+                }
             });
             AddHandler(toast, "Activated", handler);
         }
@@ -96,10 +104,26 @@ public static class DshNativeToast
 
         // Do not call Hide() or History.Remove() here. Windows owns the banner
         // animation; an immediate removal can cut it off. ExpirationTime bounds
-        // the notification-center entry. Keep the process alive briefly so a
-        // click that happens during the shell's dismissal animation can still
-        // deliver its loopback callback.
-        stop.Wait(activated ? ActivationGraceMs : RetentionGraceMs);
+        // the notification-center entry. If the user clicked, wait for the
+        // loopback POST (not merely for the event callback) to finish. If the
+        // banner was dismissed, keep the helper alive until the notification
+        // has expired in the Action Center so a later center click can still
+        // deliver its callback.
+        if (activationStarted.IsSet)
+        {
+            activationFinished.Wait(ActivationGraceMs);
+        }
+        else
+        {
+            var expiration = toast.ExpirationTime;
+            var remainingRetentionMs = expiration.HasValue
+                ? (expiration.Value - DateTimeOffset.Now).TotalMilliseconds
+                : 0;
+            if (remainingRetentionMs > 0)
+            {
+                Thread.Sleep((int)Math.Min(remainingRetentionMs, durationMs + RetentionGraceMs + 1000.0));
+            }
+        }
     }
 
     private static void AddHandler<TArgs>(ToastNotification toast, string eventName, TypedEventHandler<ToastNotification, TArgs> handler)
