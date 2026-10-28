@@ -79,7 +79,7 @@ Installing from a local directory creates a link, so DSH's HMR can pick up code 
 This repository ships `market-index.json`. Add this custom index in the DSH plugin market/discovery page:
 
 ```text
-https://raw.githubusercontent.com/game25011/dsh-notify-toast/6278d8401ee91acba160e4187ac9ac07f54a4c57/market-index.json
+https://raw.githubusercontent.com/game25011/dsh-notify-toast/d8f96cbc64ebe9572a4c0d08aa6c60ae85f03192/market-index.json
 ```
 
 Then search for `dsh-notify-toast` and install the pinned Git version.  
