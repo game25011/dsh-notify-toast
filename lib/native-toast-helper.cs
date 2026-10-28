@@ -10,6 +10,7 @@ public static class DshNativeToast
 {
     private const int ProgressTickMs = 100;
     private const int RetentionGraceMs = 5000;
+    private const int RetractionGraceMs = 300;
     private const int ActivationGraceMs = 750;
 
     public static void Run(
@@ -102,13 +103,19 @@ public static class DshNativeToast
             if (stop.Wait(ProgressTickMs)) break;
         }
 
-        // Do not call Hide() or History.Remove() here. Windows owns the banner
-        // animation; an immediate removal can cut it off. ExpirationTime bounds
-        // the notification-center entry. If the user clicked, wait for the
-        // loopback POST (not merely for the event callback) to finish. If the
-        // banner was dismissed, keep the helper alive until the notification
-        // has expired in the Action Center so a later center click can still
-        // deliver its callback.
+        // ExpirationTime alone does not remove a visible banner on this Windows
+        // build (observed: a 3 s toast remained after the 4 s expiration while
+        // the helper had already exited). Let the bar finish, then hide the
+        // banner after a short grace. Hide() is the only supported way to
+        // retract it; do not call it while an activation callback is in flight.
+        if (!activationStarted.IsSet)
+        {
+            Thread.Sleep(RetractionGraceMs);
+            try { notifier.Hide(toast); } catch { /* best effort */ }
+        }
+
+        // Keep the process alive for notification-center click callbacks until
+        // the notification expires. ExpirationTime still bounds retention.
         if (!activationStarted.IsSet)
         {
             var expiration = toast.ExpirationTime;
@@ -118,9 +125,6 @@ public static class DshNativeToast
             if (remainingRetentionMs > 0)
             {
                 var waitMs = (int)Math.Min(remainingRetentionMs, durationMs + RetentionGraceMs + 1000.0);
-                // Wait for a click during notification-center retention instead
-                // of sleeping through it. If the click arrives, fall through to
-                // wait for its loopback POST to finish before process exit.
                 activationStarted.Wait(TimeSpan.FromMilliseconds(Math.Max(0, waitMs)));
             }
         }

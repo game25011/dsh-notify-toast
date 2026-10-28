@@ -140,7 +140,7 @@ export function apply(ctx, config) { ... }  // 注册事件/路由/清理；无�
 - `createNativeToastManager()` 启动 per-Host loopback activation server（随机 token；`/activate` 校验 token、notificationId；点击后发布 `activate`）。
 - `show()` 通过 PowerShell 以 stdin 传 base64 JSON；helper 用 WinRT `ToastNotification` 显示 `<progress>`，同 kind 使用唯一 tag，旧 helper 不立即 kill，允许自然退场。
 - helper 启动时后台 `warm()` 预编译 source-hash 缓存 DLL；首条通知不显示 toast；预热失败不影响正常展示/Web Notification 回退。
-- 到达近似 duration 后停止进度更新、不 `Hide()`；设置 `ExpirationTime` 并保留短暂激活宽限，让 Windows 完成退场；`History.Remove` 不再在到期时立即调用。
+- 到达近似 duration 后停止进度更新，短暂缓冲后调用 `Hide()` 收回横幅；`ExpirationTime` 约束通知中心保留，`History.Remove` 不在到期时立即调用。
 
 ## 3. Client 半（lib/client.js）
 

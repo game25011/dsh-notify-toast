@@ -12,7 +12,7 @@ English | [中文](./README.md)
 - Chinese display name: 桌面通知（Windows 原生 toast）; the npm package name, directory, and row id stay ASCII `dsh-notify-toast` (a documented naming exception).
 - Works with: DeepSeek Harness Desktop `0.2.1-rc.2` (Electron shell, `desktop` profile), Windows 10/11
 - Form factor: official DSH bundle (Host + Web Client), installed and removed through the official plugin manager
-- Status: 0.3.0 native progress toast, natural exit, click-to-session, bar-only styling and a simple goal aggregation run verified on a real device (2026-10-21); goal edge cases remain to be re-tested; optional "rewrite the title when all tasks are done" remains available (default off)
+- Status: 0.3.0 native progress toast, automatic banner retraction, click-to-session, bar-only styling and a simple goal aggregation run verified on a real device (2026-10-21); goal edge cases remain to be re-tested; optional "rewrite the title when all tasks are done" remains available (default off)
 
 ![Windows native progress toast](docs/assets/native-toast.png)
 
@@ -27,7 +27,7 @@ English | [中文](./README.md)
 | Reply finished | Triggered by `turn/end(completed)` from `session/event`; root sessions only, subagent completions never notify; one step: "DeepSeek finished a step"; 2–4 steps: "DeepSeek pushed N steps in one go"; 5+ steps: "DeepSeek went all out and pushed N steps"; body is the first valid paragraph of the last assistant reply, falling back to "Click to view". |
 | Goal mode summary | While a goal is `active` and `armed`, per-round completions are suppressed. One summary is sent after `complete`, `paused`, `blocked`, the round limit, or `disarmed`, counting the Goal Round delta; paused/blocked use neutral titles. Questions/approvals still notify immediately. |
 | Notify only when unfocused | Re-evaluates `document.hasFocus()` / `visibilityState` when an event arrives; no toast and no sound while focused. |
-| Windows native progress toast | The Host uses a PowerShell/C#/WinRT helper to create a real Windows notification with a dynamic `<progress>` bar; it updates while the notification is displayed, then stops at the approximate deadline and lets Windows perform the exit animation. No custom in-app window. |
+| Windows native progress toast | The Host uses a PowerShell/C#/WinRT helper to create a real Windows notification with a dynamic `<progress>` bar; it updates while the notification is displayed, stops at the approximate deadline, then hides the banner after a short grace; notification-center retention is still bounded by ExpirationTime. No custom in-app window. |
 | Compatibility fallback | If the native helper cannot start or show, the plugin falls back to the Web Notification path; both are silent and the plugin plays the sound once. |
 | Body length | Default 40 characters (Unicode code points), configurable 20–60; longer text is truncated with "…". |
 | Privacy mode | Title only; body left empty. |
@@ -166,7 +166,7 @@ Host: koffi user32 SetForegroundWindow ← focus
 7. Subagent completions never notify; questions/approvals from subagents still notify (they block tasks just the same).
 8. The "completion" body takes the first paragraph of the last assistant reply; if the reply only contains code/tool calls, the body falls back to "Click to view".
 9. Merging applies only to completions; questions/approvals are never merged (you need to handle them promptly).
-10. Windows controls the native toast exit animation and banner lifetime; the approximate auto-remove delay only stops progress updates and bounds notification-center retention, not an exact banner duration. The helper no longer calls `Hide()` at the deadline.
+10. Windows controls the native toast exit animation and banner lifetime; the approximate auto-remove delay stops progress updates and bounds notification-center retention, not an exact banner duration. After a short grace the helper calls `Hide()` to retract the banner; the visual transition still belongs to Windows.
 11. Click-to-session on a native progress toast depends on the local activation callback; if the callback fails, the toast may only close without opening the session. The toast no longer uses the `dsh://open` protocol launch, avoiding a second DSH instance/session.
 12. The native helper writes a small C# DLL cache under `%LOCALAPPDATA%\dsh-notify-toast\native-cache` on first use; if compilation or PowerShell/WinRT is unavailable, the compatibility path is used.
 13. The plugin does not modify DSH core; if a DSH upgrade changes the event/RPC/settings contracts above, the plugin may need a matching update.

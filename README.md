@@ -15,7 +15,7 @@
 - 包名：`dsh-notify-toast` · 版本：`0.3.0` · 许可：MIT · 仓库：https://github.com/game25011/dsh-notify-toast
 - 适用：DeepSeek Harness Desktop `0.2.1-rc.2`（Electron 壳，profile `desktop`），Windows 10/11
 - 形态：DSH 官方 bundle（Host + Web Client 两半），通过官方插件管理器安装/卸载
-- 状态：0.3.0 原生进度 toast、bar-only 样式、自然退场、点击回会话与 Goal 汇总已在本机简单实测（2026-10-21）；Goal 边界场景仍待补测；「全部完成后改写标题」为可选功能（默认关）
+- 状态：0.3.0 原生进度 toast、bar-only 样式、自动收回、点击回会话与 Goal 汇总已在本机简单实测（2026-10-21）；Goal 边界场景仍待补测；「全部完成后改写标题」为可选功能（默认关）
 - 截图：![Windows 原生进度通知](docs/assets/native-toast.png)
 
 > 命名说明：中文显示名仅用于界面展示；npm 包名、目录、Host 行 id、settings 命名空间与 RPC 前缀保留 ASCII `dsh-notify-toast`；插件清单公共 id 为 `dsh.notify-toast`。
@@ -31,7 +31,7 @@
 | 本轮回复结束 | `session/event` 的 `turn/end(completed)` 触发；仅根会话，子代理默认不触发；单步标题「DeepSeek 搞定了一小步」，2–4 步「DeepSeek 一口气推进了 N 步」，5 步及以上「DeepSeek 火力全开，连推了 N 步」；正文取最后一条助手回复首段有效文字，取不到写「点击查看」 |
 | 目标模式汇总 | goal `active + armed` 期间不逐轮提醒；在 `complete` / `paused` / `blocked` / Round 上限 / `disarmed` 后按 `roundsStarted` 增量只发一条；暂停/受阻使用中性标题；提问/授权仍即时 |
 | 只在未聚焦时提醒 | 事件到达时实时判断 `document.hasFocus()` / `visibilityState`；聚焦时不弹、不响 |
-| Windows 原生进度 toast | Host 通过 PowerShell/C#/WinRT 创建 Windows 系统通知；通知内含动态 `<progress>` 进度条；到达近似时间后停止更新并让 Windows 自己退场，不写自绘窗口 |
+| Windows 原生进度 toast | Host 通过 PowerShell/C#/WinRT 创建 Windows 系统通知；通知内含动态 `<progress>` 进度条；到达近似时间后停止更新，短暂缓冲后收回横幅；通知中心保留由 ExpirationTime 约束，不写自绘窗口 |
 | 兼容降级 | 原生 helper 不可用或启动失败时自动退回 Web Notification；两条路径都 `silent`，声音由插件统一播放一次 |
 | 正文长度 | 默认 40 字（Unicode 码点），可配 20–60；超出截断加「…」 |
 | 隐私模式 | 只显示标题，正文留空 |
@@ -175,7 +175,7 @@ Host: koffi user32 SetForegroundWindow ← focus
 7. 子代理完成始终不提醒；对子代理的提问/审批仍会提醒（它们同样阻塞任务）。
 8. 「完成」正文取最后一条助手回复的首段；若回复只有代码/工具调用，正文回退为「点击查看」。
 9. 合并只针对「完成」；提问/授权不合并（需要你尽快处理）。
-10. **Windows 原生 toast 的退场动画和横幅停留时间由 Windows 控制**（Windows 设置/专注助手）；「通知自动移除时间（近似）」只控制进度更新停止与通知中心保留窗口，不保证横幅精确停留 N 秒，也不再主动 `Hide()` 打断退场动画。
+10. **Windows 原生 toast 的退场动画和横幅停留时间由 Windows 控制**（Windows 设置/专注助手）；「通知自动移除时间（近似）」控制进度更新停止与通知中心保留窗口，不保证横幅精确停留 N 秒。到期后插件会短暂缓冲再调用 `Hide()` 收回横幅；`Hide()` 的视觉过渡仍由 Windows 决定。
 11. 原生进度通知的点击回会话依赖 C# helper 的本地激活回调；回调失败时可能只关闭通知、无法定位会话。提示条不再使用 `dsh://open` 协议唤起，避免点击时另起 DSH 实例/会话。
 12. 原生 helper 首次运行会在 `%LOCALAPPDATA%\dsh-notify-toast\native-cache` 编译/缓存一个 C# DLL；编译失败或 PowerShell/C# 不可用时自动回退兼容通知。
 13. 插件不修改 DSH 核心；DSH 升级若改动上述事件/RPC/settings 契约，插件可能需要同步升级。
