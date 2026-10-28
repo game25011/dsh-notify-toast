@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "title": "Toast Notifications",
+    "description": "Windows native toasts for questions, approvals, and root-session completion while DeepSeek Harness is in the background. Silent while focused; click a toast to return."
+  },
+  "nav": "Notifications",
+  "notifyQuestionTitle": "DeepSeek has a question for you",
+  "notifyApprovalTitle": "DeepSeek needs your approval",
+  "notifyCompleteTitle": "DeepSeek finished a step",
+  "notifyCompleteMergedTitle": "DeepSeek pushed {count} steps in one go",
+  "notifyCompleteManyTitle": "DeepSeek went all out and pushed {count} steps",
+  "notifyAllDoneTitle": "All tasks are done",
+  "notifyTestTitle": "DSH notification test",
+  "notifyTestBody": "This is a test notification. Click to return to DSH.",
+  "fallbackBody": "Click to view",
+  "fallbackApprovalBody": "A tool call needs approval"
+}

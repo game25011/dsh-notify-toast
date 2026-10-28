@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "title": "右下角通知",
+    "description": "DSH 在后台时用 Windows 原生通知提醒提问、授权与根会话任务完成；窗口聚焦时完全不打扰，点击通知回到 DSH。"
+  },
+  "nav": "通知",
+  "notifyQuestionTitle": "DeepSeek 想问你一个问题",
+  "notifyApprovalTitle": "DeepSeek 需要你的授权",
+  "notifyCompleteTitle": "DeepSeek 搞定了一小步",
+  "notifyCompleteMergedTitle": "DeepSeek 一口气推进了 {count} 步",
+  "notifyCompleteManyTitle": "DeepSeek 火力全开，连推了 {count} 步",
+  "notifyAllDoneTitle": "所有任务均已完成",
+  "notifyTestTitle": "DSH 通知测试",
+  "notifyTestBody": "这是一条测试通知，点击可回到 DSH。",
+  "fallbackBody": "点击查看",
+  "fallbackApprovalBody": "需要批准工具调用"
+}

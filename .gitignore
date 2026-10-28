@@ -1,0 +1,25 @@
+# dependencies
+node_modules/
+
+# build artifacts
+*.tgz
+release/
+dist/
+coverage/
+.tmp/
+
+# logs
+*.log
+
+# local environment and credentials
+.env
+.env.*
+!.env.example
+.npmrc
+.npmrc.*
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

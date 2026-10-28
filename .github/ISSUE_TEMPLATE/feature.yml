@@ -1,0 +1,55 @@
+name: Feature request
+description: Suggest an improvement for dsh-notify-toast
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion. You may write this request in English or Chinese. 可以用中文填写。
+
+        Please check the README section "What this plugin does not do" first. Behavior changes and new features are discussed before implementation.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What problem would this feature solve? Describe the situation where you need it.
+      placeholder: "When ..., I want ... so that ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the behavior you would like to see, including how it should work when the DSH window is focused or unfocused.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches, workarounds, or existing plugins you have tried.
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Mockups, related issues, DSH version, Windows version, or anything else that helps evaluate the request.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and did not find a duplicate request.
+          required: true
+        - label: This request fits the plugin's scope (local Windows toast notifications; no network access, telemetry, or model calls).
+          required: true
+        - label: I removed tokens, cookies, API keys, personal paths, and other sensitive data from this request.
+          required: true

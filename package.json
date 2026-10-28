@@ -1,0 +1,75 @@
+{
+  "name": "dsh-notify-toast",
+  "version": "0.3.0",
+  "description": "DSH 后台时的 Windows 原生通知：提醒提问/授权/根会话完成，原生进度条与近似自动移除时间，点击尽量回到对应会话；不访问外部网络、不调模型。Windows native toast notifications with a progress bar for DeepSeek Harness when the window is unfocused.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "locale",
+    "docs/INTERFACE.md",
+    "docs/TEST-REPORT.md",
+    "docs/RELEASING.md",
+    "docs/assets",
+    "assets",
+    "THIRD_PARTY_NOTICES.md",
+    "cordis.patch.yml",
+    "dsh-plugin.json",
+    "icon.svg",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "dsh": ">=0.2.1-rc.2 <0.3.0",
+    "node": ">=20"
+  },
+  "author": "dsh-notify-toast contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/game25011/dsh-notify-toast.git"
+  },
+  "homepage": "https://github.com/game25011/dsh-notify-toast#readme",
+  "bugs": {
+    "url": "https://github.com/game25011/dsh-notify-toast/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "notification",
+    "toast",
+    "windows"
+  ],
+  "scripts": {
+    "test": "node --test \"test/*.test.mjs\"",
+    "smoke": "node scripts/client-smoke.mjs",
+    "probe": "node scripts/probe-rpc.mjs",
+    "pack": "npm pack"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-client-locale",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  }
+}

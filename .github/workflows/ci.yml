@@ -1,0 +1,77 @@
+name: CI
+
+# Runs on every push to main, every pull request and on demand.
+# The workflow only verifies the package; it never publishes or deploys.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+# Least privilege: read the repository, nothing else.
+permissions:
+  contents: read
+
+# Cancel an in-flight run for the same ref when a new one starts.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: test (${{ matrix.os }}, node ${{ matrix.node }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - windows-latest
+          - ubuntu-latest
+        node:
+          - 22
+          - 24
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      # Node only. The package has zero runtime dependencies, so there is
+      # deliberately no npm cache, no npm ci and no npm install step: CI never
+      # fetches packages and never talks to an external service.
+      - name: Set up Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      # node --check parses every source, script and test file without running
+      # it. bash exists on both Windows and Ubuntu runners.
+      - name: Syntax check (node --check)
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          files=(lib/*.js scripts/*.mjs test/*.test.mjs)
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo "No source files matched; refusing to pass." >&2
+            exit 1
+          fi
+          for file in "${files[@]}"; do
+            node --check "$file"
+          done
+          echo "Checked ${#files[@]} files with node --check."
+
+      # 91 tests across 8 files. On runners without a DSH profile the two
+      # "real profile schemastery" tests skip themselves (exit code stays 0).
+      - name: Unit tests
+        run: npm test
+
+      # 25 checks; drives lib/client.js in Node's vm, no browser, no network.
+      - name: Client smoke test
+        run: npm run smoke
+
+      # Preview the published file set without writing a tarball.
+      - name: Package dry run
+        run: npm pack --dry-run

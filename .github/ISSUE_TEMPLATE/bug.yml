@@ -1,0 +1,116 @@
+name: Bug report
+description: Report a reproducible problem with dsh-notify-toast
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. You may write this report in English or Chinese. 可以用中文填写。
+
+        Before submitting, please search existing issues and remove tokens, cookies, API keys, personal paths, and other sensitive data from logs and diagnostics.
+
+  - type: input
+    id: dsh-version
+    attributes:
+      label: DSH version
+      description: The DeepSeek Harness Desktop version you are running.
+      placeholder: "0.2.1-rc.2"
+    validations:
+      required: true
+
+  - type: input
+    id: windows-version
+    attributes:
+      label: Windows version
+      description: Include the edition and build number if you know them.
+      placeholder: "Windows 11 23H2 (build 22631)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: install-method
+    attributes:
+      label: Installation method
+      description: How did you install the plugin?
+      options:
+        - Official plugin manager (install_bundle with the .tgz)
+        - Official plugin manager UI
+        - Development directory link (install_bundle with a directory)
+        - CLI (self-managed web/headless profile)
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      description: Shown in Settings → Notifications → Runtime status, or in package.json.
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Settings page diagnostics
+      description: Copy the status rows from Settings → Notifications (Runtime status, System notifications, Sound engine, Window focus, Settings persistence). Redact anything sensitive.
+      placeholder: |
+        Host connection:
+        Transport:
+        Notification permission:
+        System notifications:
+        Sound engine:
+        Window focus:
+        Settings persistence:
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Minimal, ordered steps that trigger the problem.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happened instead? Include whether the DSH window was focused or unfocused.
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / errors
+      description: Relevant console or DSH logs. Write "none" if you have no logs. Remove secrets and personal paths.
+      render: shell
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and did not find a duplicate.
+          required: true
+        - label: I removed tokens, cookies, API keys, personal paths, and other sensitive data from this report.
+          required: true
+        - label: This is not a security vulnerability (security issues are reported privately, see SECURITY.md).
+          required: true
