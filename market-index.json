@@ -82,7 +82,7 @@
           "source": {
             "type": "git",
             "url": "https://github.com/game25011/dsh-notify-toast",
-            "commit": "12c5d86ae6afec690cfaff47d02ce482cfb6f710"
+            "commit": "f25e097fb6cede5f245220c04520feba31202d12"
           },
           "engines": {
             "dsh": ">=0.2.1-rc.2 <0.3.0"
