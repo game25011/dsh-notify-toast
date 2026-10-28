@@ -56,7 +56,7 @@
 | `npm test` | 94 项；0 failed、退出码 0（本机 profile 下 94 passed；无 profile 时个别 profile 相关测试会 skip） |
 | `npm run smoke` | `client smoke test: 25 passed, 0 failed` |
 | `node scripts/probe-rpc.mjs --self-check` | `7/7 checks passed` |
-| `npm pack --dry-run` | `entryCount: 26`，共 26 个文件（含原生 helper、Bubble 音效与 README 截图；以实际输出为准，见 2.2） |
+| `npm pack --dry-run` | `entryCount: 27`，共 27 个文件（含原生 helper、Bubble 音效与 README 截图；以实际输出为准，见 2.2） |
 
 - `npm test` 必须使用 `package.json` 里的命令（`node --test "test/*.test.mjs"`）。**不要**在 Node 24 Windows 上把它改成 `node --test test/`：实测会把目录当模块加载并报 `Cannot find module ...\test`（退出码 1）。CI 同样固定使用 `npm test`。
 - 2 项 skip 是预期的：`test/config.test.mjs` 里两项「真实 profile schemastery」测试在找不到 DSH profile 时会自动跳过（GitHub Actions 上没有 DSH）；退出码仍为 0。
@@ -77,20 +77,20 @@
 
 Windows 建议在 Git Bash 中执行；`rm -rf` 前先确认目标就是上述临时目录。注意：临时目录本身不会改变测试结果；结果取决于是否存在 DSH profile——本机 profile 下 94 passed；无 profile 时个别 profile 相关测试会 skip，0 failed。
 
-### 2.2 `npm pack` 文件清单（0.3.0 实测 26 个）
+### 2.2 `npm pack` 文件清单（0.3.0 实测 27 个）
 
     8  lib/*.js（all-done.js、client.js、config.js、goal-summary.js、index.js、native-focus.js、native-toast.js、text.js）
     2  lib/native-toast.ps1、lib/native-toast-helper.cs
     2  locale/*.json（en.json、zh.json）
     3  docs/*.md（INTERFACE.md、TEST-REPORT.md、RELEASING.md）
     1  docs/assets/native-toast.png（README 截图）
-    8  根/资源文件（files 白名单）：cordis.patch.yml、dsh-plugin.json、icon.svg、README.md、LICENSE、CHANGELOG.md、assets/sounds/bubble.ogg、THIRD_PARTY_NOTICES.md
+    9  根/资源文件（files 白名单）：cordis.patch.yml、dsh-plugin.json、icon.svg、README.md、AI-DISCLOSURE.md、LICENSE、CHANGELOG.md、assets/sounds/bubble.ogg、THIRD_PARTY_NOTICES.md
     1  package.json
     1  README.en.md（npm 始终收录 README*，即使不在 files 白名单）
     --
-    26
+    27
 
-说明：`files` 白名单与 `npm pack` 实际输出以命令结果为准；0.3.0 实测为 26 个（含 native-toast helper、goal-summary、Bubble 音效、第三方声明与 README 截图）。若未来增删 `docs/`、`lib/` 或 README* 文件，以 `npm pack --dry-run` 的实际输出为准并回填本节与 7.2 / 7.4。
+说明：`files` 白名单与 `npm pack` 实际输出以命令结果为准；0.3.0 实测为 27 个（含 native-toast helper、goal-summary、Bubble 音效、第三方声明、AI 参与说明与 README 截图）。若未来增删 `docs/`、`lib/` 或 README* 文件，以 `npm pack --dry-run` 的实际输出为准并回填本节与 7.2 / 7.4。
 
 ## 3. 本地 git init 与首次 commit
 
@@ -174,7 +174,7 @@ tag 指向已验证的发布 commit：
 - 本机默认 registry 是镜像时，**不带 `--registry` 的 `npm publish` 不会发到 npm 官方源**；必须显式指定。
 - `--access public`：本包是 unscoped 包，该参数用于显式声明公开；不要使用 `--access restricted`。
 - 开启 2FA 的账号会在 publish 时提示 OTP；也可以 `--otp <code>`，但不要把 OTP 写进仓库或文档。
-- 在仓库根目录执行；npm 按 `files` 白名单打包，并会自动收录 README*，当前共 26 个文件。项目没有 `prepublishOnly` / `prepare` 等生命周期脚本，不会额外执行命令。
+- 在仓库根目录执行；npm 按 `files` 白名单打包，并会自动收录 README*，当前共 27 个文件。项目没有 `prepublishOnly` / `prepare` 等生命周期脚本，不会额外执行命令。
 - 如果 npm 返回 403 / 404 表示包名不可用，不要反复重试；按 9.3 处理。
 
 ### 7.3 发布后立即校验
@@ -197,7 +197,7 @@ tag 指向已验证的发布 commit：
     tar -tzf dsh-notify-toast-0.3.0.tgz
     tar -tzf dsh-notify-toast-0.3.0.tgz | grep -vc '/$'
 
-预期：`package.json` 输出 `dsh-notify-toast 0.3.0 MIT module`；最后一条命令输出 `26`（tar 列表去掉目录条目后的文件数；不包含 `test/` 与 `scripts/`）。
+预期：`package.json` 输出 `dsh-notify-toast 0.3.0 MIT module`；最后一条命令输出 `27`（tar 列表去掉目录条目后的文件数；不包含 `test/` 与 `scripts/`）。
 
 ## 8. 发布后验证
 

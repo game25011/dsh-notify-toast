@@ -16,6 +16,12 @@ English | [中文](./README.md)
 
 ![Windows native progress toast](docs/assets/native-toast.png)
 
+## AI-assisted development
+
+**Most of the code in this repository was produced with AI coding assistants.** Some tests, documentation, and copy were also AI-assisted. The human maintainer defined requirements, chose implementation approaches, debugged, designed tests, validated behavior, and managed releases, and remains responsible for the final code and its maintenance.
+
+AI-generated content may contain errors or omissions; issues and pull requests are welcome. The project is released under the MIT License; AI tools are not the author, copyright holder, or responsible party. See [AI-DISCLOSURE.md](AI-DISCLOSURE.md).
+
 ---
 
 ## Features

@@ -4,6 +4,7 @@
 
 - 原生进度条底部只保留一条 bar + 单个静态「自动关闭」说明，不再显示百分比、剩余秒数或重复标签；声音改为 native helper 提交成功后再播放，改善弹窗与提示音同步；移除 toast 的 `dsh://open` 协议启动，避免点击通知另起 DSH 实例。
 - Goal 模式汇总：goal active+armed 期间不逐轮发完成通知；在 complete/paused/blocked/round-limit/disarmed 后按 `roundsStarted` 增量只发一条汇总；新增默认开启的“目标模式结束后汇总”设置；完成用进度标题，暂停/受阻用中性标题；提问/授权仍即时提醒。
+- 新增 AI 参与说明（`AI-DISCLOSURE.md` 与 README 双语声明）：说明大部分代码由 AI 编程助手生成，人类维护者负责需求、调试、测试、验收和发布。
 - 提示音新增可选「弹一下」：来自 uisfx 0.4.0 的 CC0 音频（rubber/notification），内嵌到 Client，无需联网或新增依赖；默认仍是「叮咚」；源文件与许可见 `THIRD_PARTY_NOTICES.md`。
 - 标题改为自动场景文案：单步「DeepSeek 搞定了一小步」、2–4 步「DeepSeek 一口气推进了 N 步」、≥5 步「DeepSeek 火力全开，连推了 N 步」、提问「DeepSeek 想问你一个问题」、授权「DeepSeek 需要你的授权」、全部根会话完成「所有任务均已完成」；删除自定义完成标题输入。
 - 删除 DSH 内应用内倒计时卡片及相关设置；改为 Windows 原生通知：Host 通过 PowerShell/C#/WinRT helper 显示真实 Windows toast，带动态 `<progress>` 进度条；到期停止更新，短暂缓冲后 `Hide()` 收回横幅（`ExpirationTime` 继续约束通知中心保留），时间只作近似；helper 不可用时自动回退 Web Notification。
