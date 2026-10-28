@@ -20,9 +20,7 @@
 
 ## AI 参与说明
 
-本项目**大部分代码由 AI 编程助手生成**，部分测试、文档和文案也有 AI 参与。人类维护者负责需求定义、方案选择、调试、测试设计、验收和发布，并对最终代码与维护负责。
-
-AI 生成内容可能存在错误或遗漏；欢迎通过 issue/PR 指出。项目以 MIT 许可发布，AI 工具不是作者、版权主体或责任主体。详见 [AI-DISCLOSURE.md](AI-DISCLOSURE.md)。
+本项目大部分代码由 AI 编程助手生成，部分测试与文档也有 AI 辅助；人类维护者负责需求、调试、测试、发布和维护。AI 生成内容可能存在错误，欢迎提交 issue 或 pull request。本项目采用 MIT License，AI 工具不是作者、版权持有者或责任主体，本说明不构成法律意见。详见 [AI-DISCLOSURE.md](AI-DISCLOSURE.md)。
 
 > 命名说明：中文显示名仅用于界面展示；npm 包名、目录、Host 行 id、settings 命名空间与 RPC 前缀保留 ASCII `dsh-notify-toast`；插件清单公共 id 为 `dsh.notify-toast`。
 
