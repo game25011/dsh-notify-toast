@@ -1,0 +1,94 @@
+{
+  "format": 1,
+  "title": {
+    "en": "DSH Community Plugins",
+    "zh": "DSH 社区插件"
+  },
+  "description": {
+    "en": "Community-maintained DeepSeek Harness bundles.",
+    "zh": "社区维护的 DeepSeek Harness 插件包。"
+  },
+  "metadata": {
+    "categories": {
+      "notifications": {
+        "title": {
+          "en": "Notifications",
+          "zh": "通知"
+        }
+      }
+    },
+    "labels": {
+      "windows": {
+        "title": {
+          "en": "Windows",
+          "zh": "Windows"
+        }
+      },
+      "native": {
+        "title": {
+          "en": "Native",
+          "zh": "原生"
+        }
+      }
+    },
+    "sortKeys": {
+      "published": {
+        "title": {
+          "en": "Published",
+          "zh": "发布时间"
+        },
+        "order": "desc"
+      }
+    }
+  },
+  "plugins": [
+    {
+      "name": "dsh-notify-toast",
+      "title": {
+        "en": "Windows Native Notifications",
+        "zh": "Windows 原生通知"
+      },
+      "description": {
+        "en": "Windows native toast notifications with a progress bar, goal-mode summaries, and click-to-session for DeepSeek Harness.",
+        "zh": "带进度条、Goal 汇总和点击回会话的 Windows 原生通知插件。"
+      },
+      "icon": "icon.svg",
+      "author": "game25011 <1449262586@QQ.com>",
+      "homepage": "https://github.com/game25011/dsh-notify-toast",
+      "repository": {
+        "url": "https://github.com/game25011/dsh-notify-toast"
+      },
+      "metadata": {
+        "category": "notifications",
+        "keywords": [
+          "windows",
+          "toast",
+          "notifications",
+          "goal",
+          "dsh"
+        ],
+        "labels": [
+          "windows",
+          "native"
+        ],
+        "sortKeys": {
+          "published": 1793197670
+        }
+      },
+      "versions": [
+        {
+          "version": "0.3.0",
+          "publishTimestamp": 1793197670,
+          "source": {
+            "type": "git",
+            "url": "https://github.com/game25011/dsh-notify-toast",
+            "commit": "12c5d86ae6afec690cfaff47d02ce482cfb6f710"
+          },
+          "engines": {
+            "dsh": ">=0.2.1-rc.2 <0.3.0"
+          }
+        }
+      ]
+    }
+  ]
+}
