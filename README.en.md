@@ -2,13 +2,14 @@
 
 English | [中文](./README.md)
 
-![npm version](https://img.shields.io/npm/v/dsh-notify-toast.svg) [![CI](https://github.com/game25011/dsh-notify-toast/actions/workflows/ci.yml/badge.svg)](https://github.com/game25011/dsh-notify-toast/actions/workflows/ci.yml) ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg) ![DSH](https://img.shields.io/badge/DSH-0.2.1--rc.2-blue) ![Platform: Windows 10/11](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D4)
+[![CI](https://github.com/game25011/dsh-notify-toast/actions/workflows/ci.yml/badge.svg)](https://github.com/game25011/dsh-notify-toast/actions/workflows/ci.yml) ![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg) ![DSH](https://img.shields.io/badge/DSH-0.2.1--rc.2-blue) ![Platform: Windows 10/11](https://img.shields.io/badge/platform-Windows%2010%2F11-0078D4)
 
 > When DeepSeek Harness is in the background, **Windows native toasts** remind you about questions and confirmations, approval requests, and finished root-session replies.
 > When the DSH window is focused, the plugin stays completely silent; clicking a notification returns to DSH and opens the matching session when possible.
 > No external network access; only a local loopback activation callback. No data collection, no cloud model calls, and no extra token usage.
 
-- Package: `dsh-notify-toast` · Version: `0.3.0` · License: MIT
+- Source/local package: `dsh-notify-toast` · Version: `0.3.0` · License: MIT
+- npm status: **not published**. Do not run `npm install dsh-notify-toast`; that npm name belongs to a different project.
 - Chinese display name: 桌面通知（Windows 原生 toast）; the npm package name, directory, and row id stay ASCII `dsh-notify-toast` (a documented naming exception).
 - Works with: DeepSeek Harness Desktop `0.2.1-rc.2` (Electron shell, `desktop` profile), Windows 10/11
 - Form factor: official DSH bundle (Host + Web Client), installed and removed through the official plugin manager
@@ -52,7 +53,9 @@ Taskbar red dots, badges or numbers, session counters, persistent tray/backgroun
 
 ## Installation
 
-> Install this plugin only through the **official plugin manager**. Do not edit the profile's `package.json` or `cordis.patch.yml` by hand.
+> Install this plugin through the **official plugin manager** or the GitHub Release. Do not edit the profile's `package.json` or `cordis.patch.yml` by hand.
+>
+> npm status: **not published**. Do not use `npm install dsh-notify-toast`; the npm name belongs to a different project.
 
 > Manifest note: `dsh-plugin.json` declares only the Host facet (`facets.host`); the Web Client half is declared by `dsh.client` in `package.json` (other third-party plugins use the same structure), so no `facets.client` is declared. Official DSH 0.2.1-rc.2 plugin loading is driven by `dsh.bundle` / `dsh.client` in `package.json`.
 
