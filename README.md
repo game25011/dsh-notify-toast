@@ -2,7 +2,6 @@
 
 中文 | [English](./README.en.md)
 
-[![npm version](https://img.shields.io/npm/v/dsh-notify-toast.svg)](https://www.npmjs.com/package/dsh-notify-toast)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
 [![CI](https://github.com/game25011/dsh-notify-toast/actions/workflows/ci.yml/badge.svg)](https://github.com/game25011/dsh-notify-toast/actions/workflows/ci.yml)
 ![DSH](https://img.shields.io/badge/DSH-0.2.1--rc.2-blue)
@@ -12,7 +11,8 @@
 > DSH 窗口聚焦时完全不打扰；点击通知回到 DSH，能定位会话就定位。
 > 不访问外部网络；仅使用本机 loopback 激活回调；不采集、不调用云端模型、不增加 token。
 
-- 包名：`dsh-notify-toast` · 版本：`0.3.0` · 许可：MIT · 仓库：https://github.com/game25011/dsh-notify-toast
+- 源码/本地包名：`dsh-notify-toast` · 版本：`0.3.0` · 许可：MIT · 仓库：https://github.com/game25011/dsh-notify-toast
+- npm 状态：**尚未发布**；不要执行 `npm install dsh-notify-toast`（该名称在 npm 上属于另一个项目）
 - 适用：DeepSeek Harness Desktop `0.2.1-rc.2`（Electron 壳，profile `desktop`），Windows 10/11
 - 形态：DSH 官方 bundle（Host + Web Client 两半），通过官方插件管理器安装/卸载
 - 状态：0.3.0 原生进度 toast、bar-only 样式、自动收回、点击回会话与 Goal 汇总已在本机简单实测（2026-10-21）；Goal 边界场景仍待补测；「全部完成后改写标题」为可选功能（默认关）
@@ -55,7 +55,9 @@
 
 ## 安装
 
-> 本插件只通过 **官方插件管理器** 安装；不要手改 profile 的 `package.json` 或 `cordis.patch.yml`。
+> 本插件只通过 **官方插件管理器** 或 GitHub Release 安装；不要手改 profile 的 `package.json` 或 `cordis.patch.yml`。
+>
+> npm 状态：**尚未发布**；请勿使用 `npm install dsh-notify-toast`，也不要把它和 npm 上的同名旧包混淆。
 
 > 插件清单说明：`dsh-plugin.json` 只声明 Host facet（`facets.host`）；Web Client 半由 `package.json` 的 `dsh.client` 声明（同类第三方插件也采用该结构），因此未声明 `facets.client`。DSH 0.2.1-rc.2 的官方插件加载以 `package.json` 的 `dsh.bundle` / `dsh.client` 为准。
 
